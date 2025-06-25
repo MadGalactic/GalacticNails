@@ -2,10 +2,7 @@ package com.example.GalacticNails.controllers;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 /*
@@ -27,7 +24,7 @@ public class HomeController {
     }
 
     // handles request of the form
-    @GetMapping("hello")
+    @RequestMapping(method={RequestMethod.GET, RequestMethod.POST}, value="hello")
     @ResponseBody
     public String helloWithQueryParam(@RequestParam String name){
         return "Hello, " + name + "!";
@@ -40,6 +37,19 @@ public class HomeController {
     @ResponseBody
     public String helloWithPathParam(@PathVariable String name){
         return "Hello " + name + "<3";
+    }
+
+    @GetMapping("form")
+    @ResponseBody
+    public String helloForm(){
+        return "<html>" +
+                "<body>" +
+                "<form action='hello' method='post'>" + // submit a request to /hello
+                "<input type='text' name='name'>" +
+                "<input type='submit' value='Hi'>" +
+                "</form>" +
+                "</body>" +
+                "</html>";
     }
 
 }
